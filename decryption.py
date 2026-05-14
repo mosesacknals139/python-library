@@ -1,19 +1,30 @@
-import random
 import string
 
-chars = " " + string.punctuation + string.digits + string.ascii_letters
-chars = list(chars)
+
+chars = list(" " + string.punctuation + string.digits + string.ascii_letters)
+
+# Paste the same shuffled key used by your encryption program here.
+# Example: key = list("your shuffled characters...")
 key = chars.copy()
-random.shuffle(key)
-while True:
-    rr_msg = input("enter a message to encrypt: ")
-    plain_msg =[]
 
-    for letter in rr_msg:
+
+def decrypt_message(encrypted_message):
+    plain_message = []
+
+    for letter in encrypted_message:
         if letter in key:
-            i = key.index(letter)
-            plain_msg.append(chars[i])
+            index = key.index(letter)
+            plain_message.append(chars[index])
         else:
-            plain_msg.append(letter)
+            plain_message.append(letter)
 
-print(''.join(plain_msg))
+    return "".join(plain_message)
+
+
+while True:
+    try:
+        encrypted_message = input("Enter a message to decrypt: ")
+    except EOFError:
+        break
+
+    print(decrypt_message(encrypted_message))
